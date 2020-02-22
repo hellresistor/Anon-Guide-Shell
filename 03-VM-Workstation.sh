@@ -22,46 +22,5 @@ read -p "## On Prompt Type on this Sequence:
 sudo mkfs.ext4 /dev/sdb1
 mkdir /home/$user/storage
 echo "/dev/sdb1 /home/$user/storage ext4 defaults 0 2" | sudo tee -a /etc/fstab
-read -p "## Reboot Workstation ##"
 
-##Part II##
-sudo apt-get install hexchat-otr zerofree thunderbird enigmail
-sudo apt-get install -t buster-backports keepassxc xul-ext-torbirdy && sudo apt-get clean
-sudo chown $user:$user storage
-mkdir storage/.thunderbird storage/.config storage/.config/keepassxc 
-mv .config/hexchat storage/.config/hexchat
-mv .gnupg storage
-ln -t ./ -s storage/.gnupg storage/.thunderbird
-ln -t .config -s ~/storage/.config/hexchat ~/storage/.config/keepassxc
-cat 'EOF'
-echo "Next things TODO....."
-
-1)Create Shortcuts Favorito
-  - HexChat
-  - KeePassXC
-  - Thunderbird
-  - Tor Browser
-  - Tor Downloader
-
-2)Open Tor Browser
-  - Preferences 
-    -- Set Default Tor Browser
-    -- Add HttpsAnywhere and NoScript Buttons
-    - Advance
-       -- Set Security Safest!
-
-3)Run Tor Downloader To check updates
-
-4)Restart and Boot Whonix on Advanced and Recovery Mode
-  Enter Password of root and RUN:
-mount -o remount,ro /dev/sda1 /
-zerofree -v /dev/sda1
-shutdown now
-
-5) ## Take Snapshot And Run it Again!!! ##
-EOF
-
-read -p "## 1ST Prep VM Workstation FINITO ##
-## Next will run 03-VM-Workstation.sh
-Press <Enter> Key to conclude"
-read -p "Press <Enter> Key after do this steps to continue"
+read -p "Press <Enter> Key to REBOOT! And Execute Next script 02-VM-Workstation-2.sh"
