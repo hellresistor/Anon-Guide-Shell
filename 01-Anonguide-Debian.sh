@@ -87,20 +87,55 @@ source .bashrc
 dist-upgrade 
 
 #######################################################
-read -p "Open Oracle Virtual Box
-
+cat 'EOF'
+Open Oracle Virtual Box
 You will execute scripts into VMs:
- - 02-VM-Gateway.sh 
- - 03-VM-Workstation-1.sh
- - 03-VM-Workstation-2.sh
- - 04-VM-Workstation-1.sh
+ - 01-Anonguide-Debian.sh (executing..)
+ - 02-VM-Gateway.sh       (Execute on Whonix Gateway)
+ - 03-VM-Workstation-1.sh (Execute on Whonix Workstation)
+ - 03-VM-Workstation-2.sh (Execute on Whonix Workstation)
+ - 04-VM-Workstation-1.sh (Execute on Whonix Workstation)
  
------ STOP HERE DO steps upstep -----
-Press <ENTER> Key to continue..." 
+----- STOP HERE  NOW And back here when 02-VM-Gateway.sh Finished -----
+EOF
 
-read -p "### VERIFY WHONIXes VMs ARE ALL SHUTDOWN!!! ###
+read -p "Press <ENTER> Key to continue..."
+
+cat 'EOF'
+2)Restart and Boot Whonix GATEWAY ON Advanced and Recovery Mode
+  Enter Password of root and ENTER this commands:
+  
+$ mount -o remount,ro /dev/sda1 /
+$ zerofree -v /dev/sda1
+$ shutdown now
+
+3) ## Take Snapshot And Run Whonix Gateway Again and minimize it ;) ##
+
+----- STOP HERE  NOW And back here when 03-VM-Workstation-1.sh Finished -----
+EOF
+
+read -p "Press <ENTER> Key to continue..."
+
+cat 'EOF'
+5)Restart and Boot Whonix WORKSTATION ON Advanced and Recovery Mode
+  Enter Password of root and RUN:
+  
+$ mount -o remount,ro /dev/sda1 /
+$ zerofree -v /dev/sda1
+$ shutdown now
+
+6) ## Take Snapshot And Run Whonix WORKSTATION with script 04-VM-Workstation-1.sh ;) ##
+
+----- STOP HERE  NOW And back here when 04-VM-Workstation-1.sh Finished -----
+EOF
+
+read -p "Press <ENTER> Key to continue..."
+
+read -p "SHUTDOWN WHONIX workstation AND THAN SHUTDOWN WHONIX Gateway
+
+###############################################
+### VERIFY WHONIXes VMs ARE ALL SHUTDOWN!!! ###
 ###      Press <Enter> key to continue      ###"
-#########################################################
 
 vbcompact
 echo -e "DEBIAN WITH WHONIX ON USB COMPLETED INSTALLED \n Shutdown and Rest a Little.. OR PRESS <Enter> Key to Continue ;)"
@@ -151,7 +186,7 @@ zerofree -v /dev/sda1
 zerofree -v /dev/sdb1 
 shutdown now
 
-# Take Snapshot and Start Gateway Again #
+# Take Snapshot ONLY #
 ##############################################################
 EOF
 
@@ -159,6 +194,8 @@ read -p "### VERIFY WHONIXes VMs ARE ALL SHUTDOWN!!! ###"
 vbcompact
 
 sleep 2
-echo "Congratulations!!! Debian Host, Whonix VMs Installed and Updated!!"
+
+echo "Congratulations!!! Scripts to AnonGuide.pdf ARE COMPLETED!!!"
+
 sleep 2
-read -p "Prepared to Next Step? ;)"
+
