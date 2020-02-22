@@ -91,8 +91,10 @@ read -p "Open Oracle Virtual Box
 
 You will execute scripts into VMs:
  - 02-VM-Gateway.sh 
- - 03-VM-Workstation.sh
- - 04-VM-Workstation.sh
+ - 03-VM-Workstation-1.sh
+ - 03-VM-Workstation-2.sh
+ - 04-VM-Workstation-1.sh
+ 
 ----- STOP HERE DO steps upstep -----
 Press <ENTER> Key to continue..." 
 
