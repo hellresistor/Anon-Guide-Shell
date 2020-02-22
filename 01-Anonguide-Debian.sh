@@ -86,12 +86,19 @@ echo "alias vbcompact='find ~/VirtualBox\ VMs/ -type f -mtime -1 -size +10M -nam
 source .bashrc
 dist-upgrade 
 
-#####################################
-echo -e "\n\n AGORA PARAS AQUI\n E vais executar scripts nas VMs respectivly (VM-Gateway.sh & VM-Workstation.sh)!!!\n\n Go to:\n Applications - System Tools - Oracle Virtual Box \n \n \n #### Quando terminares PRESS <ENTER> KEY to continue..." && read -r
-#####################################
+#######################################################
+read -p "Open Oracle Virtual Box
+
+You will execute scripts into VMs:
+ - 02-VM-Gateway.sh 
+ - 03-VM-Workstation.sh
+ - 04-VM-Workstation.sh
+----- STOP HERE DO steps upstep -----
+Press <ENTER> Key to continue..." 
 
 read -p "### VERIFY WHONIXes VMs ARE ALL SHUTDOWN!!! ###
 ###      Press <Enter> key to continue      ###"
+#########################################################
 
 vbcompact
 echo -e "DEBIAN WITH WHONIX ON USB COMPLETED INSTALLED \n Shutdown and Rest a Little.. OR PRESS <Enter> Key to Continue ;)"
