@@ -36,22 +36,9 @@ Next things TODO.....
        -- Set Security Safest!
 
 3)Run Tor Downloader To check updates
-EOF
 
-read -p "Press <Enter> Key to continue..."
-
-cat 'EOF'
-4)Restart and Boot Whonix on Advanced and Recovery Mode
-  Enter Password of root and RUN:
-mount -o remount,ro /dev/sda1 /
-zerofree -v /dev/sda1
-shutdown now
-
-5) ## Take Snapshot And Run it Again!!! ##
+4) Go TO Debian Host script and PRESS <Enter> Key to continue....
 EOF
 
 read -p "## 2ND Prep VM Workstation FINITO ##
-
-Next will run 04-VM-Workstation-1.sh
-
 Press <Enter> Key to conclude"
