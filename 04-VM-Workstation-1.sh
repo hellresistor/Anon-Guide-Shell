@@ -1,5 +1,5 @@
 #!/bin/bash
-## 04-VM-Workstation.sh
+## 04-VM-Workstation-1.sh
 ## Continue of Anonguide-Debian.sh
 ## Hellrezistor Contribution to Anonguide.pdf
 ## Respect and support Anon
@@ -9,7 +9,7 @@
 ## After your Whonix Workstation 1ST Step
 ##
 
-# PART II #
+# USER Configuration PART II #
 read -p "PLEASE FOLLOW THIS RECOMMENDATIONS!!!!!! Press <Enter> Key to continue..."
 
 cat 'EOF'
@@ -67,7 +67,7 @@ Open Thunderbird
        ---- usermail 
  - Enigmail
    -- Create Cert to usermail
-   -- Create Revoke Cert (Set a EasyNameToRevokeCert.asc)
+   -- Create Revoke Cert (Set a EasyNameToRevokeCert.asc and copyIT)
    -- Upload PGP Keyservers
 EOF
 
@@ -77,9 +77,6 @@ read -p "What is your EasyNameToRevokeCert.gpg" EasyNameToRevokeCert
 mkdir storage/gpg-revoke 
 gpg --cipher-algo AES256 --symmetric $EasyNameToRevokeCert
 mv *.gpg storage/gpg-revoke
-
-## To revoke a KEY
-##$ gpg -o $EasyNameToRevokeCert.asc -d ~/storage/gpg-revoke/$EasyNameToRevokeCert.gpg
 
 cat 'EOF'
 Preferences 
