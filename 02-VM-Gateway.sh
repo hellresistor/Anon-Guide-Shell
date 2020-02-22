@@ -22,14 +22,7 @@ cat 'EOF'
 1)Create Shortcuts Favoritos 
   - Onion Circuits
   
-2)Restart and Boot Whonix Advanced and Recovery Mode
-  Enter Password of root and RUN:
-  
-$ mount -o remount,ro /dev/sda1 /
-$ zerofree -v /dev/sda1
-$ shutdown now
-
-3) ## Take Snapshot And Run Whonix Gateway ##
+2) Go TO Debian Host script and PRESS <Enter> Key to continue....
 EOF
 
 read -p "## 1ST Prep VM GATEWAY FINITO ##
