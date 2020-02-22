@@ -52,6 +52,6 @@ EOF
 
 read -p "## 2ND Prep VM Workstation FINITO ##
 
-Next will run 03-VM-Workstation.sh
+Next will run 04-VM-Workstation-1.sh
 
 Press <Enter> Key to conclude"
