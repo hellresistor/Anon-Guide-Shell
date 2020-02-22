@@ -1,5 +1,5 @@
 #!/bin/bash
-## 02-VM-Workstation-2.sh
+## 03-VM-Workstation-2.sh
 ## Continue of Anonguide-Debian.sh
 ## Hellrezistor Contribution to Anonguide.pdf
 ## Respect and support Anon
