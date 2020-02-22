@@ -24,3 +24,4 @@ mkdir /home/$user/storage
 echo "/dev/sdb1 /home/$user/storage ext4 defaults 0 2" | sudo tee -a /etc/fstab
 
 read -p "Press <Enter> Key to REBOOT! And Execute Next script 02-VM-Workstation-2.sh"
+sudo reboot
