@@ -77,7 +77,7 @@ vboxmanage storageattach Whonix-Workstation-$WNXFAC --storagectl "Whonix-Worksta
 
 QeMu(){
 sudo apt install qemu qemu-kvm libvirt-bin bridge-utils virt-manager libosinfo-bin git time curl apt-cacher-ng lsb-release fakeroot dpkg-dev build-essential devscripts
-sleep 2
+sudo apt-get install qemu-kvm libvirt-daemon-system libvirt-clients virt-manager gir1.2-spiceclientgtk-3.0
 
 echo "activating services..."
 sudo cat<<EOF>> /etc/libvirt/qemu.conf
@@ -91,12 +91,18 @@ sudo service libvirtd status
 
 sudo addgroup "$(whoami)" libvirt
 sudo addgroup "$(whoami)" kvm
-sudo virsh -c qemu:///system net-autostart default
-sudo virsh autostart linuxconfig-vm
+
+read -p "Do Reboot"
+
+virsh -c qemu:///system net-autostart default
+virsh -c qemu:///system net-start default
+#sudo virsh autostart linuxconfig-vm
 # disable auto start
 # virsh autostart --disable linuxconfig-vm
 ## To get the List od OS Types 
 osinfo-query os > output.txt
+
+echo "Downloading Whonix"
 torsocks wget -c https://download.whonix.org/libvirt/$WNXVER/Whonix-$WNXFAC-$WNXVER.libvirt.xz
 torsocks wget -c https://download.whonix.org/libvirt/$WNXVER/Whonix-$WNXFAC-$WNXVER.libvirt.xz.asc
 torsocks wget -c https://www.whonix.org/hulahoop.asc
@@ -107,8 +113,12 @@ gpg --import hulahoop.asc
 gpg --verify-options show-notations --verify Whonix-$WNXFAC-$WNXVER.libvirt.xz.asc
 
 tar -xvf Whonix-$WNXFAC-$WNXVER.libvirt.xz
-
 touch WHONIX_BINARY_LICENSE_AGREEMENT_accepted
+
+export VISUAL=nano
+virsh -c qemu:///system edit Whonix-Gateway
+
+ls -la /var/run/libvirt/libvirt-sock
 }
 
 start2(){
@@ -130,11 +140,11 @@ read -p "What you will use:
 2- KVM (qemu)" OPTION
 
 if [ "$OPTION" == "1" ] then;
- start
+ starter
  VBox
  start2
 elif [ "$OPTION" == "2" ] then;
- start
+ starter
  QeMu
  start2
 else
