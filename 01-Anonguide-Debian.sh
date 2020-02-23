@@ -5,14 +5,7 @@
 ## Respect and support Anon
 ## V2.21
 ## 
-
-## PREPARATION os Debian Host
-##########################
-##  PLEASE CHANGE THIS  ##
-##########################
-WNXVER="15.0.0.8.9"
-WNXFAC="XFCE" ## OR "CLI"
-##########################
+source ChangeMe
 
 starter(){
 # root session #
@@ -31,18 +24,31 @@ ufw enable
 
 apt-get install tor apt-transport-tor
 cp /etc/apt/sources.list /etc/apt/sources.list.original 
-sudo sed -i 's|https|tor+https|g' /etc/apt/sources.list | sudo tee -a /etc/apt/sources.list
 echo "deb tor+https://deb.debian.org/debian-security buster/updates main contrib non-free" | sudo tee -a /etc/apt/sources.list
 apt-get update
-apt-get install linux-headers-amd64 software-properties-common
-sudo apt install -y cpu-checker
+apt-get install -y linux-headers-amd64 software-properties-common cpu-checker
 
 echo "Checking VM Support..."
 sudo kvm-ok
 read -p -r "Press any key to continue"
 }
 
+ender(){
+sudo systemctl disable tor.service
+
+echo "alias dist-upgrade='sudo systemctl start tor.service && sleep 30 && sudo apt-get update && sudo apt-get dist-upgrade && sudo apt-get clean && sudo systemctl stop tor.service && test -f /var/run/reboot-required && tput setaf 1 && echo NEW SOFTWARE REQUIRES A REBOOT. && tput setaf 2 && echo Press ENTER to reboot your && read -sp computer: && echo If prompted by Debian, type your password and press ENTER. && sudo reboot'" >> .bashrc 
+echo "function apt-install() { sudo systemctl start tor.service; sleep 30; sudo apt-get update; sudo apt-get install "\$@"; sudo apt-get clean; sudo systemctl stop tor.service; }" >> .bashrc 
+echo "alias vbcompact='find ~/VirtualBox\ VMs/ -type f -mtime -1 -size +10M -name *.vdi -exec vboxmanage modifymedium --compact {} \;'" >> .bashrc
+
+source .bashrc
+dist-upgrade 
+
+read -p "Os Updated!
+Press <Enter> Key to Continue..."
+}
+
 VBox(){
+cp /etc/apt/sources.list /etc/apt/sources.list.older
 echo "deb [arch=amd64] tor+https://download.virtualbox.org/virtualbox/debian buster contrib" >> /etc/apt/sources.list
 torsocks wget https://www.virtualbox.org/download/oracle_vbox_2016.asc
 apt-key add oracle_vbox_2016.asc
@@ -78,9 +84,118 @@ vboxmanage createhd --filename VirtualBox\ VMs/Whonix-Workstation-$WNXFAC/Whonix
 vboxmanage storageattach Whonix-Workstation-$WNXFAC --storagectl "Whonix-Workstation-$WNXFAC-sas" --port 1 --device 0 --type hdd --medium /home/teste/VirtualBox\ VMs/Whonix-Workstation-$WNXFAC/Whonix-Workstation-$WNXFAC-storage.vdi --mtype writethrough
 }
 
+VBox2(){
+cat 'EOF'
+Open Oracle Virtual Box
+You will execute scripts into VMs:
+ - 01-Anonguide-Debian.sh (executing..)
+ - 02-VM-Gateway.sh       (Execute on Whonix Gateway)
+ - 03-VM-Workstation-1.sh (Execute on Whonix Workstation)
+ - 03-VM-Workstation-2.sh (Execute on Whonix Workstation)
+ - 04-VM-Workstation-1.sh (Execute on Whonix Workstation)
+ 
+----- STOP HERE  NOW -- RUN VM Gateway and back here when 02-VM-Gateway.sh Finished -----
+EOF
+
+read -p "Press <ENTER> Key to continue..."
+
+cat 'EOF'
+2)Restart and Boot Whonix GATEWAY ON Advanced and Recovery Mode
+  Enter Password of root and ENTER this commands:
+  
+$ mount -o remount,ro /dev/sda1 /
+$ zerofree -v /dev/sda1
+$ shutdown now
+
+3) ## Take Snapshot And Run Whonix Gateway Again and minimize it ;) ##
+
+----- STOP HERE  NOW And back here when 03-VM-Workstation-1.sh Finished -----
+EOF
+
+read -p "Press <ENTER> Key to continue..."
+
+cat 'EOF'
+5)Restart and Boot Whonix WORKSTATION ON Advanced and Recovery Mode
+  Enter Password of root and RUN:
+  
+$ mount -o remount,ro /dev/sda1 /
+$ zerofree -v /dev/sda1
+$ shutdown now
+
+6) ## Take Snapshot And Run Whonix WORKSTATION with script 04-VM-Workstation-1.sh ;) ##
+
+----- STOP HERE  NOW And back here when 04-VM-Workstation-1.sh Finished -----
+EOF
+
+read -p "Press <ENTER> Key to continue..."
+
+read -p "SHUTDOWN WHONIX workstation AND THAN SHUTDOWN WHONIX Gateway
+###############################################
+### VERIFY WHONIXes VMs ARE ALL SHUTDOWN!!! ###
+###      Press <Enter> key to continue      ###"
+
+vbcompact
+echo -e "DEBIAN WITH WHONIX ON USB COMPLETED INSTALLED \n Shutdown and Rest a Little.. OR PRESS <Enter> Key to Continue ;)"
+read -p
+
+echo "checking securely updates to Host"
+dist-upgrade
+
+cat 'EOF'
+#############################
+## BOOT/RUN Whonix Gateway ##
+#############################
+sudo apt-get-update-plus dist-upgrade && sudo apt-get clean
+
+#############################################################
+## Every time you run updates AND installing, NEED DO THIS ##
+#############################################################
+# Shutdown - Boot in Recovery Mode - Put Password #
+# type this commands:
+
+$ mount -o remount,ro /dev/sda1 /
+$ zerofree -v /dev/sda1 
+$ shutdown now
+
+# Take Snapshot and Start Gateway Again #
+##############################################################
+EOF
+
+read -p "AFTER Succefully runned of Whonix Gateway...
+Press <Enter> Key to Continue.."
+
+cat 'EOF'
+#################################
+## BOOT/RUN Whonix Workstation ##
+##   Execute this on Terminal  ##
+#################################
+sudo apt-get-update-plus dist-upgrade && sudo apt-get clean
+
+#############################################################
+## Every time you run updates AND installing, NEED DO THIS ##
+#############################################################
+# Shutdown - Boot in Recovery Mode - Put password #
+# type this commands:
+
+$ mount -o remount,ro /dev/sda1 /
+$ mount -o remount,ro /dev/sdb1 /home/user/storage 
+$ zerofree -v /dev/sda1 
+$ zerofree -v /dev/sdb1 
+$ shutdown now
+
+# Take Snapshot ONLY #
+##############################################################
+EOF
+
+read -p "### VERIFY WHONIXes VMs ARE ALL SHUTDOWN!!! ###"
+vbcompact
+
+sleep 2
+}
+
 QeMu(){
 sudo apt install qemu qemu-kvm libvirt-bin bridge-utils virt-manager libosinfo-bin git time curl apt-cacher-ng lsb-release fakeroot dpkg-dev build-essential devscripts
-sudo apt-get install qemu-kvm libvirt-daemon-system libvirt-clients virt-manager gir1.2-spiceclientgtk-3.0
+sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients virt-manager gir1.2-spiceclientgtk-3.0
 
 echo "activating services..."
 sudo cat<<EOF>> /etc/libvirt/qemu.conf
@@ -111,20 +226,9 @@ gpg --verify-options show-notations --verify Whonix-$WNXFAC-$WNXVER.libvirt.xz.a
 tar -xvf Whonix-$WNXFAC-$WNXVER.libvirt.xz
 touch WHONIX_BINARY_LICENSE_AGREEMENT_accepted
 
-sudo systemctl disable tor.service
-
-echo "alias dist-upgrade='sudo systemctl start tor.service && sleep 30 && sudo apt-get update && sudo apt-get dist-upgrade && sudo apt-get clean && sudo systemctl stop tor.service && test -f /var/run/reboot-required && tput setaf 1 && echo NEW SOFTWARE REQUIRES A REBOOT. && tput setaf 2 && echo Press ENTER to reboot your && read -sp computer: && echo If prompted by Debian, type your password and press ENTER. && sudo reboot'" >> .bashrc 
-echo "function apt-install() { sudo systemctl start tor.service; sleep 30; sudo apt-get update; sudo apt-get install "\$@"; sudo apt-get clean; sudo systemctl stop tor.service; }" >> .bashrc 
-echo "alias vbcompact='find ~/VirtualBox\ VMs/ -type f -mtime -1 -size +10M -name *.vdi -exec vboxmanage modifymedium --compact {} \;'" >> .bashrc
-
-source .bashrc
-dist-upgrade 
-
-read -p "Os Updated!
-Press <Enter> Key to Continue..."
 }
 
-start2(){
+QeMu2(){
 virsh -c qemu:///system net-autostart default
 virsh -c qemu:///system net-start default
 sudo virsh autostart linuxconfig-vm
@@ -175,12 +279,12 @@ systemctl start serial-getty@ttyS0.service
 sudo virsh start Whonix-Workstation
 
 cat 'EOF'
-Change this /etc/default/grub on VM Workstation to able console seial
- GRUB_CMDLINE_LINUX_DEFAULT=“console=tty0 console=ttyS0
- GRUB_TERMINAL=“serial console
+Change this /etc/default/grub on VM Workstation to able console serial
+ GRUB_CMDLINE_LINUX_DEFAULT=“console=tty0 console=ttyS0"
+ GRUB_TERMINAL=“serial console"
 update-grub
 EOF
-read -p "continue....
+read -p "continue...."
 virsh console Whonix-Workstation
 
 else
@@ -196,20 +300,24 @@ read -p "Change screen Resolution: "
 ls -la /var/run/libvirt/libvirt-sock
 }
 
-###########################
-###########################
+####################################################
 read -p "What you will use:
-1- Virtual Box
-2- KVM (qemu)" OPTION
+1- Virtual Box  (completed)
+2- KVM (qemu)   (in building...)" OPTION
 
 if [ "$OPTION" == "1" ] then;
  starter
  VBox
- start2
+ ender
+ VBox2
 elif [ "$OPTION" == "2" ] then;
  starter
  QeMu
- start2
+ ender
+ QeMu2
 else
  echo "Wrong OPTION" && exit 0
 fi
+echo "Congratulations!!! ARE COMPLETED!!!"
+sleep 2
+####################################################
