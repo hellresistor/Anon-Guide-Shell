@@ -1,0 +1,10 @@
+#!/bin/bash
+## ChangeMe
+
+##########################
+##  PLEASE CHANGE THIS  ##
+##########################
+
+WNXVER="15.0.0.8.9"  ## Whonix version
+WNXFAC="XFCE"        ## "XFCE" or "CLI" 
+##########################
