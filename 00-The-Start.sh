@@ -36,6 +36,7 @@ echo "deb tor+https://deb.debian.org/debian-security buster/updates main contrib
 apt-get update
 apt-get install linux-headers-amd64 software-properties-common
 sudo apt install -y cpu-checker
+
 echo "Checking VM Support..."
 sudo kvm-ok
 read -p -r "Press any key to continue"
@@ -47,9 +48,11 @@ torsocks wget https://www.virtualbox.org/download/oracle_vbox_2016.asc
 apt-key add oracle_vbox_2016.asc
 apt-get update
 apt-get install virtualbox-6.1 dkms
+
 sed -i '/GRUB_CMDLINE_LINUX_DEFAULT="quiet"/cGRUB_CMDLINE_LINUX_DEFAULT="ipv6.disable=1 quiet"/' /etc/default/grub
 update-grub
 exit
+
 # user session #
 cd Downloads
 echo "Get Whonix and Keys.."
@@ -92,17 +95,10 @@ sudo service libvirtd status
 sudo addgroup "$(whoami)" libvirt
 sudo addgroup "$(whoami)" kvm
 
-read -p "Do Reboot"
-
-virsh -c qemu:///system net-autostart default
-virsh -c qemu:///system net-start default
-#sudo virsh autostart linuxconfig-vm
-# disable auto start
-# virsh autostart --disable linuxconfig-vm
-## To get the List od OS Types 
-osinfo-query os > output.txt
+exit
 
 echo "Downloading Whonix"
+cd Downloads
 torsocks wget -c https://download.whonix.org/libvirt/$WNXVER/Whonix-$WNXFAC-$WNXVER.libvirt.xz
 torsocks wget -c https://download.whonix.org/libvirt/$WNXVER/Whonix-$WNXFAC-$WNXVER.libvirt.xz.asc
 torsocks wget -c https://www.whonix.org/hulahoop.asc
@@ -115,14 +111,6 @@ gpg --verify-options show-notations --verify Whonix-$WNXFAC-$WNXVER.libvirt.xz.a
 tar -xvf Whonix-$WNXFAC-$WNXVER.libvirt.xz
 touch WHONIX_BINARY_LICENSE_AGREEMENT_accepted
 
-export VISUAL=nano
-virsh -c qemu:///system edit Whonix-Gateway
-
-ls -la /var/run/libvirt/libvirt-sock
-}
-
-start2(){
-rm Downloads/*
 sudo systemctl disable tor.service
 
 echo "alias dist-upgrade='sudo systemctl start tor.service && sleep 30 && sudo apt-get update && sudo apt-get dist-upgrade && sudo apt-get clean && sudo systemctl stop tor.service && test -f /var/run/reboot-required && tput setaf 1 && echo NEW SOFTWARE REQUIRES A REBOOT. && tput setaf 2 && echo Press ENTER to reboot your && read -sp computer: && echo If prompted by Debian, type your password and press ENTER. && sudo reboot'" >> .bashrc 
@@ -131,6 +119,81 @@ echo "alias vbcompact='find ~/VirtualBox\ VMs/ -type f -mtime -1 -size +10M -nam
 
 source .bashrc
 dist-upgrade 
+
+read -p "Os Updated!
+Press <Enter> Key to Continue..."
+}
+
+start2(){
+virsh -c qemu:///system net-autostart default
+virsh -c qemu:///system net-start default
+sudo virsh autostart linuxconfig-vm
+
+## To get the List od OS Types 
+osinfo-query os > output.txt
+
+## To EDIT  XML
+#export VISUAL=nano
+#virsh -c qemu:///system edit Whonix-Gateway
+
+echo "Importing VM Templates ..."
+virsh -c qemu:///system net-define Whonix_external*.xml
+virsh -c qemu:///system net-define Whonix_internal*.xml
+virsh -c qemu:///system net-autostart Whonix-External
+virsh -c qemu:///system net-start Whonix-External
+virsh -c qemu:///system net-autostart Whonix-Internal
+virsh -c qemu:///system net-start Whonix-Internal
+
+echo "Importing VM Images..."
+virsh -c qemu:///system define Whonix-Gateway*.xml
+virsh -c qemu:///system define Whonix-Workstation*.xml
+
+echo "Moving VMs Images Files..."
+sudo mv Whonix-Gateway*.qcow2 /var/lib/libvirt/images/Whonix-Gateway.qcow2
+sudo mv Whonix-Workstation*.qcow2 /var/lib/libvirt/images/Whonix-Workstation.qcow2
+
+echo "Copying VMs Images Files..."
+sudo cp --sparse=always Whonix-Gateway*.qcow2 /var/lib/libvirt/images/Whonix-Gateway.qcow2
+sudo cp --sparse=always Whonix-Workstation*.qcow2 /var/lib/libvirt/images/Whonix-Workstation.qcow2
+
+echo "Encrypted containers"
+sudo chmod og+xr /run/media/private/user/$container_name
+
+#rm Downloads/Whonix*
+
+
+
+if [ "$WNXFAC" == "CLI" ] then;
+read -p "Will Run Whonix Gateway on CLI...
+Press <Enter> Key to continue..."
+sudo virsh start Whonix-Gateway
+read -p "Will Run Whonix Workstation on CLI...
+Press <Enter> Key to continue..."
+
+systemctl enable serial-getty@ttyS0.service
+systemctl start serial-getty@ttyS0.service
+sudo virsh start Whonix-Workstation
+
+cat 'EOF'
+Change this /etc/default/grub on VM Workstation to able console seial
+ GRUB_CMDLINE_LINUX_DEFAULT=“console=tty0 console=ttyS0
+ GRUB_TERMINAL=“serial console
+update-grub
+EOF
+read -p "continue....
+virsh console Whonix-Workstation
+
+else
+cat 'EOF'
+Go Start - Application - System - Virtual machine Manager
+  - Run Gateway
+  - Run Workstation
+EOF
+fi
+
+read -p "Change screen Resolution: "
+
+ls -la /var/run/libvirt/libvirt-sock
 }
 
 ###########################
