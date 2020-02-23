@@ -18,6 +18,14 @@ mv .config/hexchat storage/.config/hexchat
 mv .gnupg storage
 ln -t ./ -s storage/.gnupg storage/.thunderbird
 ln -t .config -s ~/storage/.config/hexchat ~/storage/.config/keepassxc
+
+sudo apt-get install apparmor-profiles apparmor-profiles-extra apparmor-profiles-kicksecure
+sudo aa-enforce /etc/apparmor.d/*
+sudo apt-get install apparmor-profile-torbrowser
+sudo apt-get install apparmor-profile-xchat
+sudo apt-get install apparmor-profile-icedove
+sudo apt-get install apparmor-profile-virtualbox
+
 cat 'EOF'
 Next things TODO.....
 
