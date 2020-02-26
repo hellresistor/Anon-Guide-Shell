@@ -14,7 +14,7 @@ then
   debian)
    printf 'Debian Installation\n'
    echo "$NAME $VERSION DETECTED" && sleep 1
-   . Debian.sh
+   . 01-Anonguide-Debian.sh
   ;;
   fedora)
    printf 'Fedora Installation\n'
