@@ -15,6 +15,8 @@ read -p -s "Set $USER Password:" RTUSER
 echo "changeme\n$RTPASS\n$RTPASS" | sudo passwd root
 echo "changeme\n$RTUSER\n$RTUSER" | passwd
 echo "deb tor+http://deb.debian.org/debian buster-backports main contrib non-free" | sudo tee -a /etc/apt/sources.list.d/debian.list
+#OR
+# sudo su -c "echo -e 'deb tor+http://vwakviie2ienjx6t.onion/debian buster-backports main contrib non-free' > /etc/apt/sources.list.d/backports.list"
 sudo apt-get-update-plus dist-upgrade && sudo apt-get clean
 sudo fdisk /dev/sdb
 read -p "## On Prompt Type on this Sequence:
