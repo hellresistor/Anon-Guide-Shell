@@ -26,6 +26,6 @@ then
     ;;
  esac
 else
-        echo "ONLY PURER LINUX"
+        echo "ONLY PURE LINUX"
         exit
 fi
