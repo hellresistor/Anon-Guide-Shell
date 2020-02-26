@@ -14,6 +14,17 @@ then
   debian)
    printf 'Debian Installation\n'
    echo "$NAME $VERSION DETECTED" && sleep 1
+   echo && read -p "What you will use:
+   1- Virtual Box
+   2- Qemu/KVM
+   " VMCHOICE
+   case "$VMCHOICE" in
+    1) echo "VMBOX"
+    ;;
+    2) echo "qemu"
+    ;;
+    *) echo "FAIL"
+    ;;
    . 01-Anonguide-Debian.sh
   ;;
   fedora)
