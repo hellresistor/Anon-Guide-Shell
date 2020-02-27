@@ -38,6 +38,8 @@ else
 fi
 
 sudo pam_duress_adduser $USER $PANICPSWD $ScriptLoc
+read -p "$USER Panic Password Created with execution script: $ScriptLoc
+Press <Enter> Key to continue"
 }
 
 MENU(){
