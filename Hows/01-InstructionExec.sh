@@ -55,5 +55,4 @@ EOF
 
 read -p "### VERIFY WHONIXes VMs ARE ALL SHUTDOWN!!! ###"
 vbcompact
-
 sleep 2
