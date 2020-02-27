@@ -20,20 +20,27 @@ then
    " VMCHOICE
    case "$VMCHOICE" in
     1) echo "VMBOX"
-       
        . Debian/Debian-starter.sh
        . Debian/Debian-VBox-starter.sh
        . Debian/Debian-ender.sh
        . Hows/00-InstructionExec.sh
        vbcompact
        . Hows/01-InstructionExec.sh
-   . Hows/01-InstructionExec.sh
+       vbcompact
+       sleep 2
     ;;
     2) echo "qemu"
+       . Debian/Debian-starter.sh
+       . Debian/Debian-Qemu-starter.sh
+       . Debian/Debian-ender.sh
+       . Debian/Debian-Qemu-Continue.sh
+       . Hows/00-InstructionExec.sh
+       . Hows/01-InstructionExec.sh
+       sleep 2
     ;;
     *) echo "FAIL"
     ;;
-   . 01-Anonguide-Debian.sh
+    esac
   ;;
   fedora)
    printf 'Fedora Installation\n'
