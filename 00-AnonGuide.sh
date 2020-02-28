@@ -1,7 +1,66 @@
 #!/bin/bash
 ## Starter ##
-
 #############
+STARTER(){
+sudo -i
+
+echo "IF you REALLY are Using Anon-Guide...
+well.... you need answer this question..
+  -- What CHAPTER have you walked? -- 
+1 - Chapter 2A
+2 - Chapter 2B
+3 - Chapter 2C" 
+read CHPTROPT
+
+if [ "$CHPTROPT" == "1" ];then
+  echo "Are you Using this METHOD: Debian (Encrypted Boot USB)"
+  sleep 3
+  MENU
+elif [ "$CHPTROPT" == "2" ];then
+  echo "Are you Using this METHOD: Debian (Internal HDD) + BootKey (USB)"
+  
+elif [ "$CHPTROPT" == "3" ];then
+ echo "Are you Using this METHOD: Debian (USB) + BootKey (USB)"
+ dd if=/dev/urandom of=/keyfile bs=512 count=16
+ YourDeviceName=$(awk '{print $2}' /etc/crypttab)
+ 
+ nano /etc/crypttab 
+-- erase "none luks"
+--save it
+ 
+ 
+ 
+cryptsetup luksAddKey /dev/$YourDeviceName /keyfile
+gpg -c --cipher-algo AES256 /keyfile 
+  -- Set password SAME HAS BOOTPWD
+mv /keyfile.gpg /boot/keyfile.gpg 
+update-initramfs -u
+
+##### NEED REBOOOOOOTTT ####
+
+sudo -i
+cryptsetup luksKillSlot /dev/$YourDeviceName 0 --key-file /keyfile
+shred -n 30 -uv /keyfile 
+
+cat 'EOF'
+Config Tweaks of debian desktop
+  -- Disable Sound
+  -- Disable History & Temp Files
+  -- Auto Empyt Trash etc
+  -- Do Software Updates On GUI on SOFTWARE
+  -- Software & Updates 
+    --- Updates 
+      ----Never Auto check Updates
+EOF
+ 
+ 
+
+else
+ echo "FAIL COCKSUCKER" && exit
+fi
+
+}
+
 PANICX(){
 echo "Lets Config a PANIC PASSWORD ;)"
 sleep 2
@@ -43,6 +102,7 @@ Press <Enter> Key to continue"
 }
 
 MENU(){
+PANICX
 echo "Detecting OS ..." && sleep 1
 if [ -f /etc/os-release ]
 then
@@ -102,5 +162,5 @@ fi
 ## MAIN ##
 ##########
 source .ChangeMe
-PANICX
+STARTER
 MENU
