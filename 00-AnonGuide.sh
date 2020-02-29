@@ -8,8 +8,7 @@ echo "IF you REALLY are Using Anon-Guide...
 well.... you need answer this question..
   -- What CHAPTER have you walked? -- 
 1 - Chapter 2A
-2 - Chapter 2B
-3 - Chapter 2C" 
+2 - Chapter 2B" 
 read CHPTROPT
 
 if [ "$CHPTROPT" == "1" ];then
@@ -17,32 +16,18 @@ if [ "$CHPTROPT" == "1" ];then
   sleep 3
   MENU
 elif [ "$CHPTROPT" == "2" ];then
-  echo "Are you Using this METHOD: Debian (Internal HDD) + BootKey (USB)"
-  
-elif [ "$CHPTROPT" == "3" ];then
- echo "Are you Using this METHOD: Debian (USB) + BootKey (USB)"
+ echo "Are you Using this METHOD: Debian (USB / Internal HDD) + BootKey (USB)"
  dd if=/dev/urandom of=/keyfile bs=512 count=16
  YourDeviceName=$(awk '{print $2}' /etc/crypttab)
- 
- nano /etc/crypttab 
--- erase "none luks"
---save it
- 
- 
- 
-cryptsetup luksAddKey /dev/$YourDeviceName /keyfile
-gpg -c --cipher-algo AES256 /keyfile 
-  -- Set password SAME HAS BOOTPWD
-mv /keyfile.gpg /boot/keyfile.gpg 
-update-initramfs -u
-
-##### NEED REBOOOOOOTTT ####
-
-sudo -i
-cryptsetup luksKillSlot /dev/$YourDeviceName 0 --key-file /keyfile
-shred -n 30 -uv /keyfile 
-
-cat 'EOF'
+ sed -i 's+none luks+/boot/keyfile.gpg luks,keyscript=/lib/cryptsetup/scripts/decrypt_gnupg+'  /etc/crypttab
+ cryptsetup luksAddKey /dev/$YourDeviceName /keyfile
+ echo "Set Password... Same has BOOT" && sleep 2
+ gpg -c --cipher-algo AES256 /keyfile 
+ mv /keyfile.gpg /boot/keyfile.gpg 
+ update-initramfs -u
+ cryptsetup luksKillSlot /dev/$YourDeviceName 0 --key-file /keyfile
+ shred -n 30 -uv /keyfile 
+ cat 'EOF'
 Config Tweaks of debian desktop
   -- Disable Sound
   -- Disable History & Temp Files
@@ -52,13 +37,11 @@ Config Tweaks of debian desktop
     --- Updates 
       ----Never Auto check Updates
 EOF
- 
- 
-
+ read -p "Chapter 2C Finished!! Press <Enter> key to continue..."
+ MENU
 else
  echo "FAIL COCKSUCKER" && exit
 fi
-
 }
 
 PANICX(){
@@ -163,4 +146,3 @@ fi
 ##########
 source .ChangeMe
 STARTER
-MENU
