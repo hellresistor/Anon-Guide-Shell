@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-souce ./ChangeMe
+source ../ChangeMe
+
 virsh -c qemu:///system net-autostart default
 virsh -c qemu:///system net-start default
 sudo virsh autostart linuxconfig-vm
