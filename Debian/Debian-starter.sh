@@ -1,19 +1,56 @@
 #!/bin/bash
 ##
-source .ChangeMe
-
-# root session #
 sudo -i
+source ./ChangeMe
+
+echo "IF you REALLY are Using Anon-Guide...
+well.... you need answer this question..
+  -- What CHAPTER have you walked? -- 
+1 - Chapter 2A
+2 - Chapter 2B" 
+read CHPTROPT
+
+if [ "$CHPTROPT" == "1" ];then
+ echo "Are you Using this METHOD: Debian (Encrypted Boot USB)"
+ sleep 3
+ MENU
+elif [ "$CHPTROPT" == "2" ];then
+ echo "Are you Using this METHOD: Debian (USB / Internal HDD) + BootKey (USB)"
+ dd if=/dev/urandom of=/keyfile bs=512 count=16
+ YourDeviceName=$(awk '{print $2}' /etc/crypttab)
+ sed -i 's+none luks+/boot/keyfile.gpg luks,keyscript=/lib/cryptsetup/scripts/decrypt_gnupg+'  /etc/crypttab
+ cryptsetup luksAddKey /dev/$YourDeviceName /keyfile
+ echo "Set Password... Same has BOOT" && sleep 2
+ gpg -c --cipher-algo AES256 /keyfile 
+ mv /keyfile.gpg /boot/keyfile.gpg 
+ update-initramfs -u
+ cryptsetup luksKillSlot /dev/$YourDeviceName 0 --key-file /keyfile
+ shred -n 30 -uv /keyfile 
+ cat 'EOF'
+Config Tweaks of debian desktop
+  -- Disable Sound
+  -- Disable History & Temp Files
+  -- Auto Empyt Trash etc
+  -- Do Software Updates On GUI on SOFTWARE
+  -- Software & Updates 
+    --- Updates 
+      ----Never Auto check Updates
+EOF
+ echo "Chapter 2C Finished!!" 
+ read -p "Press <Enter> key to continue..."
+else
+ echo "FAIL COCKSUCKER" && exit
+fi
 
 echo "net.ipv4.tcp_timestamps = 0" > /etc/sysctl.d/tcp_timestamps.conf
 sysctl -p /etc/sysctl.d/tcp_timestamps.conf
 
 if [ -f /etc/systemd/system/bluetooth.target.wants/bluetooth.service ]
 then
-systemctl stop bluetooth.service && systemctl disable bluetooth.service
-echo "Bluetooth Service disabled && sleep 1"
+ systemctl stop bluetooth.service && systemctl disable bluetooth.service
+ echo "Bluetooth Service disabled && sleep 1"
 else
-echo "No bluetooth service" && sleep 1
+ echo "No bluetooth service" && sleep 1
 fi
 
 apt-get install ufw
