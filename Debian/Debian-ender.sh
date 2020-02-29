@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-source ./ChangeME
+source ../ChangeME
 
 sudo systemctl disable tor.service
 
