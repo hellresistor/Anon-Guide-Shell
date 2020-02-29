@@ -1,7 +1,7 @@
 #!/bin/bash
 ##
 sudo -i
-source ./ChangeMe
+source ../ChangeMe
 
 echo "IF you REALLY are Using Anon-Guide...
 well.... you need answer this question..
