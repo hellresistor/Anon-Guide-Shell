@@ -1,17 +1,8 @@
 # Anon-Guide-Shell
-Contribution to Complementation of Anon-Guide.pdf
-
-anonguide.pdf
-
-After Full Installation you need run these
-
+Contribution to Anon-Guide.pdf
 
 git clone https://github.com/hellresistor/Anon-Guide-Shell.git
+chmod 770 -R Anon-Guide-Shell
+./Anon-Guide-Shell/00-AnonGuide.sh
 
-chmod 777 -R Anon-Guide-Shell
-
-./01-Anonguide-Debian.sh
-
-
-
-Just run the 01-Anonguide-Debian.sh and follow the things
+Just run the 00-AnonGuide.sh and follow the things
