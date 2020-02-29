@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-. ./ChangeMe
+source ../ChangeMe
+
 cp /etc/apt/sources.list /etc/apt/sources.list.older
 echo "deb [arch=amd64] tor+https://download.virtualbox.org/virtualbox/debian buster contrib" >> /etc/apt/sources.list
 torsocks wget https://www.virtualbox.org/download/oracle_vbox_2016.asc
