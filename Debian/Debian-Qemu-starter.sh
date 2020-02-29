@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-source ./ChangeMe
+source ../ChangeMe
 
 sudo apt install qemu qemu-kvm libvirt-bin bridge-utils virt-manager libosinfo-bin git time curl apt-cacher-ng lsb-release fakeroot dpkg-dev build-essential devscripts
 sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients virt-manager gir1.2-spiceclientgtk-3.0
