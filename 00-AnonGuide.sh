@@ -1,48 +1,6 @@
 #!/bin/bash
 ## Starter ##
 #############
-STARTER(){
-sudo -i
-
-echo "IF you REALLY are Using Anon-Guide...
-well.... you need answer this question..
-  -- What CHAPTER have you walked? -- 
-1 - Chapter 2A
-2 - Chapter 2B" 
-read CHPTROPT
-
-if [ "$CHPTROPT" == "1" ];then
-  echo "Are you Using this METHOD: Debian (Encrypted Boot USB)"
-  sleep 3
-  MENU
-elif [ "$CHPTROPT" == "2" ];then
- echo "Are you Using this METHOD: Debian (USB / Internal HDD) + BootKey (USB)"
- dd if=/dev/urandom of=/keyfile bs=512 count=16
- YourDeviceName=$(awk '{print $2}' /etc/crypttab)
- sed -i 's+none luks+/boot/keyfile.gpg luks,keyscript=/lib/cryptsetup/scripts/decrypt_gnupg+'  /etc/crypttab
- cryptsetup luksAddKey /dev/$YourDeviceName /keyfile
- echo "Set Password... Same has BOOT" && sleep 2
- gpg -c --cipher-algo AES256 /keyfile 
- mv /keyfile.gpg /boot/keyfile.gpg 
- update-initramfs -u
- cryptsetup luksKillSlot /dev/$YourDeviceName 0 --key-file /keyfile
- shred -n 30 -uv /keyfile 
- cat 'EOF'
-Config Tweaks of debian desktop
-  -- Disable Sound
-  -- Disable History & Temp Files
-  -- Auto Empyt Trash etc
-  -- Do Software Updates On GUI on SOFTWARE
-  -- Software & Updates 
-    --- Updates 
-      ----Never Auto check Updates
-EOF
- read -p "Chapter 2C Finished!! Press <Enter> key to continue..."
- MENU
-else
- echo "FAIL COCKSUCKER" && exit
-fi
-}
 
 PANICX(){
 echo "Lets Config a PANIC PASSWORD ;)"
@@ -93,14 +51,14 @@ then
  case $ID in
   qubes)
    echo "$NAME $VERSION DETECTED" && sleep 1
-   . Qubes.sh
+   . Qubes/Qubes.sh
   ;;
   debian)
    printf 'Debian Installation\n'
    echo "$NAME $VERSION DETECTED" && sleep 1
    echo && read -p "What you will use:
-   1- Virtual Box
-   2- Qemu/KVM
+   1- Virtual Box (working)
+   2- Qemu/KVM    (developing...)
    " VMCHOICE
    case "$VMCHOICE" in
     1) echo "VMBOX"
