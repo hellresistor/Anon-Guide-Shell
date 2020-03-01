@@ -1,15 +1,24 @@
 #!/bin/bash
 # 00-InstructionExec.sh
+source ../ChangeMe
 
 cat 'EOF'
 Open Oracle Virtual Box
 You will execute scripts into VMs:
- - 02-VM-Gateway.sh       (Execute on Whonix Gateway)
- - 03-VM-Workstation-1.sh (Execute on Whonix Workstation)
- - 03-VM-Workstation-2.sh (Execute on Whonix Workstation)
- - 04-VM-Workstation-1.sh (Execute on Whonix Workstation)
+ - 02-VM-Gateway.sh       (Execute on Whonix Gateway - Unique step)
+ - 03-VM-Workstation-1.sh (Execute on Whonix Workstation - 1st step)
+ - 03-VM-Workstation-2.sh (Execute on Whonix Workstation - 2nd step)
+ - 04-VM-Workstation-1.sh (Execute on Whonix Workstation - 3rd step)
  
------ STOP HERE  NOW -- RUN VM Gateway and back here when 02-VM-Gateway.sh Finished -----
+TIP: Run within the respective Whonix VirtualMachines
+   wget $ANONRep/WhonixVMs/0*-VM-*.sh
+   chmod 770 $ANONRep/WhonixVMs/0*-VM-*.sh
+ 
+-------------------------------------------
+-----   STOP HERE THIS SIDE TO NOW    ----- 
+-----   RUN Whonix Gateway and back   -----
+-----  when 02-VM-Gateway.sh Finished -----
+-------------------------------------------
 EOF
 
 read -p "Press <ENTER> Key to continue..."
