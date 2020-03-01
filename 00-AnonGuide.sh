@@ -1,8 +1,8 @@
 #!/bin/bash
 ## Starter ##
 #############
+source ChangeMe
 
-MENU(){
 echo "Detecting OS ..." && sleep 1
 if [ -f /etc/os-release ]
 then
@@ -56,10 +56,3 @@ else
         echo "ONLY PURE LINUX"
         exit
 fi
-}
-
-##########
-## MAIN ##
-##########
-source .ChangeMe
-STARTER
