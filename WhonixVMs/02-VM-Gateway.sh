@@ -13,8 +13,6 @@ read -p -s "Set $USER Password:" RTUSER
 echo "changeme\n$RTPASS\n$RTPASS" | sudo passwd root
 echo "changeme\n$RTUSER\n$RTUSER" | passwd
 
-dbpkg --reconfigure keyboard
-
 sudo apt-get-update-plus dist-upgrade && sudo apt-get clean
 sudo apt-get install zerofree
 
