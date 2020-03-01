@@ -83,4 +83,4 @@ apt-get install tor apt-transport-tor
 cp /etc/apt/sources.list /etc/apt/sources.list.original 
 echo "deb tor+https://deb.debian.org/debian-security $ID_CODENAME/updates main contrib non-free" | sudo tee -a /etc/apt/sources.list
 apt-get update
-apt-get install -y linux-headers-$(dpkg --print-architecture) software-properties-common cpu-checker
+apt-get install -y linux-headers-$(dpkg --print-architecture) software-properties-common
