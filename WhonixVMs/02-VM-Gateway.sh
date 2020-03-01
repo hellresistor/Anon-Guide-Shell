@@ -8,8 +8,8 @@
 ## This script its the 1st STEP TO DO
 ## After your Whonix Gateway Boot 1st Time
 
-read -p -s "Set Root Password:" RTPASS
-read -p -s "Set $USER Password:" RTUSER
+read -s -p "Set Root Password:" RTPASS
+read -s -p "Set $USER Password:" RTUSER
 echo "changeme\n$RTPASS\n$RTPASS" | sudo passwd root
 echo "changeme\n$RTUSER\n$RTUSER" | passwd
 
