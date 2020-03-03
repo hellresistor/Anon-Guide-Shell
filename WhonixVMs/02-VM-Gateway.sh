@@ -20,8 +20,8 @@ echo
 echo " sudo password is: changeme :ONLY THIS TIME"
 sleep 2
 echo
-echo "$RTPASS\n$RTPASS" | sudo passwd root
-echo "changeme\n$RTUSER\n$RTUSER" | passwd
+echo -e "$RTPASS\n$RTPASS" | sudo passwd root
+echo -e "changeme\n$RTUSER\n$RTUSER" | passwd
 
 sudo systemctl stop rsyslog.service
 sudo systemctl disable rsyslog.service
@@ -29,12 +29,11 @@ sudo systemctl disable rsyslog.service
 sudo apt-get-update-plus dist-upgrade && sudo apt-get clean
 sudo apt-get install zerofree
 
-cat 'EOF'
+echo"
 1)Create Shortcuts Favoritos 
   - Onion Circuits
   
-2) Go TO Debian Host script and PRESS <Enter> Key to continue....
-EOF
+2) Go TO Debian Host script and PRESS <Enter> Key to continue...."
 
 read -p "## 1ST Prep VM GATEWAY FINITO ##
 Press <Enter> Key to conclude"
