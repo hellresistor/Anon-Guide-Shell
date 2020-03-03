@@ -7,11 +7,24 @@
 ## 
 ## This script its the 1st STEP TO DO
 ## After your Whonix Gateway Boot 1st Time
-
-read -s -p "Set Root Password:" RTPASS
-read -s -p "Set $USER Password:" RTUSER
-echo "changeme\n$RTPASS\n$RTPASS" | sudo passwd root
+echo
+echo ""
+echo
+read -s -p "Set New Root Password:
+" RTPASS
+echo
+read -s -p "Set New $USER Password:
+" RTUSER
+echo
+echo
+echo " sudo password is: changeme :ONLY THIS TIME"
+sleep 2
+echo
+echo "$RTPASS\n$RTPASS" | sudo passwd root
 echo "changeme\n$RTUSER\n$RTUSER" | passwd
+
+sudo systemctl stop rsyslog.service
+sudo systemctl disable rsyslog.service
 
 sudo apt-get-update-plus dist-upgrade && sudo apt-get clean
 sudo apt-get install zerofree
@@ -25,3 +38,4 @@ EOF
 
 read -p "## 1ST Prep VM GATEWAY FINITO ##
 Press <Enter> Key to conclude"
+history -ca
