@@ -11,8 +11,7 @@
 
 # USER Configuration PART II #
 read -p "PLEASE FOLLOW THIS RECOMMENDATIONS!!!!!! Press <Enter> Key to continue..."
-
-cat 'EOF'
+echo "
 Open KeePassXC:
  - Tools 
  - Settings 
@@ -36,12 +35,11 @@ Close KeePassXC
 
 ######################################################################################
 ## More info about a forgotten changed password CHECK anonguide.pdf pages. 345 a 13 ##
-######################################################################################
-EOF
+######################################################################################"
 
 read -p "When FINICHED KeePassXC Press <Enter> Key to continue"
 
-cat 'EOF'
+echo "
 Go to above site do Register an new email with Tor Browser
 http://danielas3rtn54uwmofdo3x2bsdifr47huasnmbgqzfrec5ubupvtpid.onion/mail/postfixadmin/register.php
 Thank you danwin!!!
@@ -68,8 +66,7 @@ Open Thunderbird
  - Enigmail
    -- Create Cert to usermail
    -- Create Revoke Cert (Set a EasyNameToRevokeCert.asc and copyIT)
-   -- Upload PGP Keyservers
-EOF
+   -- Upload PGP Keyservers"
 
 read -p "When these step finished. Press <Enter> Key to continue..."
 
@@ -78,34 +75,33 @@ mkdir storage/gpg-revoke
 gpg --cipher-algo AES256 --symmetric $EasyNameToRevokeCert
 mv *.gpg storage/gpg-revoke
 
-cat 'EOF'
+echo "
 Preferences 
  -- Advanced
   --- General 
    ---- Config Editor
-    ----- Search to “network.dns.blockDotOnion” set TRUE
+    ----- Search to network.dns.blockDotOnion set TRUE
    ---- UNCHECK Global Search 
    ---- Return Receipts 
-    ----- CHECK "Never send a return receipt"
+    ----- CHECK -Never send a return receipt-
   --- Network & Disk Space 
    ---- Connection Setting 
     ----- CheckBox ON “Proxy DNS 
   --- Data Choices 
    ---- UNCHECK Crash Reporter
  -- Privacy
-  --- UNCHECK "Remember websites.."
+  --- UNCHECK -Remember websites..-
  -- OpenPGP Sec 
   --- CHECK "Encrypt msgs defalt" -
   --- UNCHECK PGP/MIME 
   --- CHECK "Sign encrpt msgs"
 ##############################################
 ## ###### DONT CLICK "OK" BUTTON YET ###### ##
-##############################################
-EOF
+##############################################"
 
 read -p "When these step finished. Press <Enter> Key to continue..."
 
-cat 'EOF'
+echo "
  Enigmail
   - Preferences 
    -- Sending
@@ -129,12 +125,11 @@ cat 'EOF'
 ##  Set primary usermail@danwin1210.com 
 ## Copy FingerPrint jijk A1B2 jkjh jijk C3F9 F9F9 F9AA SDVC 34lkj jkjh
 ## Upload Public Keys to Keyserver
-#############################################################################################
-EOF
+#############################################################################################"
 
 read -p "When these step finished. Press <Enter> Key to continue..."
 
-cat 'EOF'
+echo "
  Thunderbird
   - Email Settings 
    -- Signature Text Add
@@ -143,8 +138,8 @@ cat 'EOF'
 
 ########################################################
 ## Try send mail to: anonguide@tt3j2x4k5ycaa5zt.onion ##
-########################################################
-EOF
+########################################################"
+
 read -p "When FINICHED Thunderbird Press <Enter> Key to continue"
 
 echo "## HexChat TIME ##"
@@ -156,7 +151,7 @@ openssl req -x509 -new -newkey rsa:4096 -sha256 -days 1827 -nodes -out CGAN.pem 
 echo && echo "## Enter all defaults ##" && echo 
 FNGROUTPUT=$(openssl x509 -sha1 -noout -fingerprint -in CGAN.pem | sed -e 's/^.*=//;s/://g;y/ABCDEF/abcdef/')
 
-cat 'EOF'
+echo "
 Open Hexchat
 - Settings 
   -- Preferences 
@@ -182,12 +177,10 @@ Open Hexchat
 	 --- Connect
     ---- Check Nothing
     ---- Check Always show
-   --- OK 
-EOF
+   --- OK"
 
 read -p "After These Config PRESS <Enter> Key to continue to how use HexChat"
-
-cat 'EOF'
+echo "
 ### After Connected ###
 ### Let's create and register your IRCNickname ###
 /otr genkey IRCNickname@CGAN
@@ -213,8 +206,7 @@ Server
 ################################################################################
 ##  If DURING chatting returns "user not authenticated" maybe is a IMPOSTOR.  ##
 ################################################################################
-/otr finish
-EOF
+/otr finish"
 
 read -p "When FINICHED HexChat IRC Press <Enter> Key to continue"
 
