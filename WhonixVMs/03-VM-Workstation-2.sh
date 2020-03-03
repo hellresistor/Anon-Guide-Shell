@@ -26,7 +26,7 @@ sudo apt-get install apparmor-profile-xchat
 sudo apt-get install apparmor-profile-icedove
 sudo apt-get install apparmor-profile-virtualbox
 
-cat 'EOF'
+echo "
 Next things TODO.....
 
 1)Create Shortcuts Favorito
@@ -45,8 +45,7 @@ Next things TODO.....
 
 3)Run Tor Downloader To check updates
 
-4) Go TO Debian Host script and PRESS <Enter> Key to continue....
-EOF
+4) Go TO Debian Host script and PRESS <Enter> Key to continue...."
 
 read -p "## 2ND Prep VM Workstation FINITO ##
 Press <Enter> Key to conclude"
