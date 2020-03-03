@@ -9,10 +9,17 @@
 ## After your Whonix Workstation Boot 1st Time
 ##
 
-##Part I##
-read -p -s "Set Root Password:" RTPASS
-read -p -s "Set $USER Password:" RTUSER
-echo "changeme\n$RTPASS\n$RTPASS" | sudo passwd root
+read -s -p "Set New Root Password:
+" RTPASS
+echo
+read -s -p "Set New $USER Password:
+" RTUSER
+echo
+echo
+echo " sudo password is: changeme :ONLY THIS TIME"
+sleep 2
+echo
+echo "$RTPASS\n$RTPASS" | sudo passwd root
 echo "changeme\n$RTUSER\n$RTUSER" | passwd
 echo "deb tor+http://deb.debian.org/debian buster-backports main contrib non-free" | sudo tee -a /etc/apt/sources.list.d/debian.list
 #OR
