@@ -7,7 +7,7 @@ read -p
 echo "checking securely updates to Host"
 dist-upgrade
 
-cat 'EOF'
+echo "
 #############################
 ## BOOT/RUN Whonix Gateway ##
 #############################
@@ -24,13 +24,12 @@ $ zerofree -v /dev/sda1
 $ shutdown now
 
 # Take Snapshot and Start Gateway Again #
-##############################################################
-EOF
+##############################################################"
 
 read -p "AFTER Succefully runned of Whonix Gateway...
 Press <Enter> Key to Continue.."
 
-cat 'EOF'
+echo "
 #################################
 ## BOOT/RUN Whonix Workstation ##
 ##   Execute this on Terminal  ##
@@ -50,7 +49,6 @@ $ zerofree -v /dev/sdb1
 $ shutdown now
 
 # Take Snapshot ONLY #
-##############################################################
-EOF
+##############################################################"
 
 read -p "### VERIFY WHONIXes VMs ARE ALL SHUTDOWN!!! ###"
