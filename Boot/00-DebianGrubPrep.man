@@ -30,4 +30,5 @@ grub-install --target=i386-pc --boot-directory=/boot --recheck /dev/sdc
 update-grub
 exit
 exit
-echo "FINISH INSTALLATION OF DEBIAN button. And Boot Debian and Run. 01-BootKey.sh"
+echo "FINISH INSTALLATION of debian installation menuChoice.
+Boot Debian and Run. 00-AnonGuide.sh"
