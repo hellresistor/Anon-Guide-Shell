@@ -12,6 +12,7 @@ read CHPTROPT
 
 if [ "$CHPTROPT" == "1" ];then
  echo "Are you Using this METHOD: Debian (Encrypted Boot USB)" && sleep 1
+ ### wait for this ###
 elif [ "$CHPTROPT" == "2" ];then
  echo "Are you Using this METHOD: Debian (USB / Internal HDD) + BootKey (USB)" && sleep 1
  dd if=/dev/urandom of=/keyfile bs=512 count=16
@@ -28,7 +29,7 @@ elif [ "$CHPTROPT" == "2" ];then
  echo "Chapter 2C Finished!!" 
  read -p "Press <Enter> key to continue..."
 else
- echo "FAIL COCKSUCKER" && exit
+ echo "FAIL COCKSUCKER" && exit 0
 fi
 
 echo "Lets Config a PANIC PASSWORD ;)"
@@ -69,7 +70,7 @@ sysctl -p /etc/sysctl.d/tcp_timestamps.conf
 if [ -f /etc/systemd/system/bluetooth.target.wants/bluetooth.service ]
 then
  systemctl stop bluetooth.service && systemctl disable bluetooth.service
- echo "Bluetooth Service disabled && sleep 1"
+ echo "Bluetooth Service disabled!" && sleep 1
 else
  echo "No bluetooth service" && sleep 1
 fi
