@@ -32,10 +32,45 @@ else
  echo "FAIL COCKSUCKER" && exit 0
 fi
 
+echo "Disable SOUNd"
+gnome-control-center sound
+read -p "Press <Enter> key to continue..."
+echo "Disable IPv6"
+gnome-control-center network
+read -p "Press <Enter> key to continue..."
+echo "Disable History & Usage + Purge Trash"
+gnome-control-center privacy
+read -p "Press <Enter> key to continue..."
+
+echo "net.ipv4.tcp_timestamps = 0" > /etc/sysctl.d/tcp_timestamps.conf
+sysctl -p /etc/sysctl.d/tcp_timestamps.conf
+
+if [ -f /etc/systemd/system/bluetooth.target.wants/bluetooth.service ]
+then
+ systemctl stop bluetooth.service && systemctl disable bluetooth.service
+ echo "Bluetooth Service disabled!" && sleep 1
+else
+ echo "No bluetooth service" && sleep 1
+fi
+
+apt-get install ufw
+cp /etc/ufw/before.rules /etc/ufw/before.rules.original
+sed -i /etc/ufw/before.rules -e '/# ok icmp codes for INPUT/,/# allow dhcp client to work/s/ACCEPT/DROP/g'
+ufw enable
+
+apt-get install tor apt-transport-tor
+cp /etc/apt/sources.list /etc/apt/sources.list.original 
+sudo sed -i 's|https|tor+https|g' /etc/apt/sources.list
+echo "deb tor+https://deb.debian.org/debian-security $ID_CODENAME/updates main contrib non-free" | sudo tee -a /etc/apt/sources.list
+apt-get update
+apt-get install -y linux-headers-$(dpkg --print-architecture) software-properties-common
+
+read -p "IF you want config a PANIC PASSWORD write OK " PAMDUR
+if [ "$PAMDUR" == "OK" ]; then
 echo "Lets Config a PANIC PASSWORD ;)"
 sleep 2
 sudo apt install -y git make build-essential libpam0g-dev libssl1.1 libssl-dev
-git clone https://github.com/Lqp1/pam_duress
+torsocks git clone https://github.com/Lqp1/pam_duress
 # apt install libcurl4-openssl-dev libpam-cracklib ## check if REALLY needed installed..
 cd pam_duress
 make
@@ -63,26 +98,6 @@ fi
 sudo pam_duress_adduser $USER $PANICPSWD $ScriptLoc
 read -p "$USER Panic Password Created with execution script: $ScriptLoc
 Press <Enter> Key to continue"
-
-echo "net.ipv4.tcp_timestamps = 0" > /etc/sysctl.d/tcp_timestamps.conf
-sysctl -p /etc/sysctl.d/tcp_timestamps.conf
-
-if [ -f /etc/systemd/system/bluetooth.target.wants/bluetooth.service ]
-then
- systemctl stop bluetooth.service && systemctl disable bluetooth.service
- echo "Bluetooth Service disabled!" && sleep 1
 else
- echo "No bluetooth service" && sleep 1
+ echo "NOT Use PAM DURESS aKa Panic Password"
 fi
-
-apt-get install ufw
-cp /etc/ufw/before.rules /etc/ufw/before.rules.original
-sed -i /etc/ufw/before.rules -e '/# ok icmp codes for INPUT/,/# allow dhcp client to work/s/ACCEPT/DROP/g'
-ufw enable
-
-apt-get install tor apt-transport-tor
-cp /etc/apt/sources.list /etc/apt/sources.list.original 
-sudo sed -i 's|https|tor+https|g' /etc/apt/sources.list
-echo "deb tor+https://deb.debian.org/debian-security $ID_CODENAME/updates main contrib non-free" | sudo tee -a /etc/apt/sources.list
-apt-get update
-apt-get install -y linux-headers-$(dpkg --print-architecture) software-properties-common
