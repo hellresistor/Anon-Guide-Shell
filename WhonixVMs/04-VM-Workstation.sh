@@ -41,9 +41,9 @@ EOF
 read -p "When FINICHED KeePassXC Press <Enter> Key to continue"
 
 cat <<EOF
-Go to above site do Register an new email with Tor Browser
+Go to above site and Register an new email with Tor Browser
 http://danielas3rtn54uwmofdo3x2bsdifr47huasnmbgqzfrec5ubupvtpid.onion/mail/postfixadmin/register.php
-Thank you danwin!!!
+See: https://www.whonix.org/wiki/Encrypted_Email_with_Thunderbird_and_Enigmail#Setup_the_New_Email_Account
 
 When creating usermail Dont forget create a new entry on KeePassXC AND GENERATE Password
 
