@@ -1,14 +1,14 @@
 # Anon-Guide-Shell
 
-workin on this ...
+  workin on this ...
 
-Contribution to Anon-Guide.pdf
+Hellresistor Contribution to Anon-Guide
+Version: 1.0 Alpha
 
-git clone https://github.com/hellresistor/Anon-Guide-Shell.git
+Thank you to ALL TRUE Anonymous !
 
-chmod 770 -R Anon-Guide-Shell
-
-./Anon-Guide-Shell/00-AnonGuide.sh
-
+    git clone https://github.com/hellresistor/Anon-Guide-Shell.git
+    chmod -R +x $PWD/Anon-Guide-Shell
+    bash $PWD/Anon-Guide-Shell/00-AnonGuide.sh
 
 Just run the 00-AnonGuide.sh and follow the things
