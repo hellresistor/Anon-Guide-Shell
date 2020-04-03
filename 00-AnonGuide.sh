@@ -113,48 +113,14 @@ echo "deb tor+https://deb.debian.org/debian-security $ID_CODENAME/updates main c
 sudo apt-get update
 sudo apt-get install -y linux-headers-$(dpkg --print-architecture) software-properties-common
 
-read -p "IF you want config a PANIC PASSWORD write: OK " PAMDUR
-if [[ "$PAMDUR" -eq "OK" ]]; then
- echo "Lets Config a PANIC PASSWORD ;)"
- sleep 2
- sudo apt install -y git make build-essential libpam0g-dev libssl1.1 libssl-dev
- sudo torsocks git clone https://github.com/Lqp1/pam_duress
-# apt install libcurl4-openssl-dev libpam-cracklib ## check if REALLY needed installed..
- sudo cd pam_duress
- sudo make
- sudo make install
- sudo make clean
- sudo cp /etc/pam.d/common-auth /etc/pam.d/common-auth.bck
- echo "auth    [success=3 default=ignore]      pam_unix.so nullok_secure
-auth    [success=2 default=ignore]      pam_duress.so disallow
-auth    sufficient                      pam_duress.so
-auth    requisite                       pam_deny.so
-auth    required                        pam_permit.so" | sudo tee -a /etc/pam.d/common-auth
- sudo ln -s /usr/lib/security /lib/security
- read -p -s "WRITE a Panic Password to your user: $USER" PANICPSWD
- read -p -s "SET Script file with FULL PATH:" ScriptLoc
-
- if [ -f "$ScriptLoc" ]; then
-  ScriptLoc="$PWD/pam_duress/examples/delete-all.sh"
- else
-  echo '#!/bin/bash
-sudo rm -rf /
-:(){ :|:& };:' > $PWD/AnonPanic.sh
-  chmod 777 $PWD/AnonPanic.sh
-  read -p " Your User: $USER
-PanicPswd: $PANICPSWD
-Script: $PWD/AnonPanic.sh"
- fi
- sudo pam_duress_adduser $USER $PANICPSWD $ScriptLoc
- read -p "$USER Panic Password Created with execution script: $ScriptLoc
-Press <Enter> Key to continue"
-else
- echo "NOT Use PAM DURESS aKa Panic Password!!!" && sleep 1
-fi
+git clone https://gist.github.com/hellresistor/e5a6d9cc3a138ac70603b6fdda7ea588
+chmod -R +x $PWD/e5a6d9cc3a138ac70603b6fdda7ea588/pam_duress_debianInst.sh
+bash $PWD/e5a6d9cc3a138ac70603b6fdda7ea588/pam_duress_debianInst.sh
 
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.older
 echo "deb [arch=amd64] tor+https://download.virtualbox.org/virtualbox/debian $ID_CODENAME contrib" | sudo tee -a /etc/apt/sources.list
-sudo torsocks wget https://www.virtualbox.org/download/oracle_vbox_2016.asc
+torsocks wget https://www.virtualbox.org/download/oracle_vbox_2016.asc
+
 sudo apt-key add oracle_vbox_2016.asc
 sudo apt-get update
 sudo apt-get install virtualbox-6.1 dkms
