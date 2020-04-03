@@ -3,7 +3,6 @@
 ##  PLEASE CHANGE THIS   ##
 ANONRep="https://github.com/hellresistor/Anon-Guide-Shell"
 ScriptLoc=""             ## Script to PanicPassword. Default: $PWD/pam_duress/examples/delete-all.sh
-WNXVER="15.0.0.8.9"      ## Whonix version
+WNXVER="15.0.0.9.4"      ## Whonix version
 WNXFAC="XFCE"            ## "XFCE" or "CLI" 
 ##
-. /etc/os-release
