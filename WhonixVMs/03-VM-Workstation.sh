@@ -16,8 +16,8 @@ sudo chown $USER:$USER storage
 mkdir $PWD/storage/.thunderbird $PWD/storage/.config $PWD/storage/.config/keepassxc 
 mv $PWD/.config/hexchat $PWD/storage/.config/hexchat
 mv $PWD/.gnupg $PWD/storage
-ln -t ./ -s $PWD/storage/.gnupg $PWD/storage/.thunderbird
-ln -t .config -s $PWD/storage/.config/hexchat $PWD/storage/.config/keepassxc
+ln -t $PWD -s $PWD/storage/.gnupg $PWD/storage/.thunderbird
+ln -t $PWD/.config -s $PWD/storage/.config/hexchat $PWD/storage/.config/keepassxc
 
 sudo apt-get install apparmor-profiles apparmor-profiles-extra apparmor-profiles-kicksecure
 sudo aa-enforce /etc/apparmor.d/*
