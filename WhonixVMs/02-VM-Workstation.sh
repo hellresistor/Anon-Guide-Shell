@@ -25,9 +25,11 @@ sudo echo "deb tor+http://deb.debian.org/debian $ID_CODENAME-backports main cont
 #OR
 # sudo su -c "echo -e 'deb tor+http://vwakviie2ienjx6t.onion/debian $ID_CODENAME-backports main contrib non-free' > /etc/apt/sources.list.d/backports.list"
 sudo apt-get-update-plus dist-upgrade && sudo apt-get clean
-sudo fdisk /dev/sdb
+
 read -p "## On Prompt Type on this Sequence:
    n - <Enter> - <Enter> - <Enter> - <Enter> - w - <Enter>"
+sudo fdisk /dev/sdb
+
 sudo mkfs.ext4 /dev/sdb1
 mkdir $PWD/storage
 echo "/dev/sdb1 /home/$user/storage ext4 defaults 0 2" | sudo tee -a /etc/fstab
