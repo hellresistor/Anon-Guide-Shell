@@ -16,7 +16,7 @@ read -s -p "Set New $USER Password:
 " RTUSER
 echo
 echo
-echo " sudo password is: changeme :ONLY THIS TIME"
+echo " sudo password is:  changeme  :ONLY THIS TIME"
 sleep 2
 echo
 echo -e "$RTPASS\n$RTPASS" | sudo passwd root
@@ -36,4 +36,6 @@ echo "
 
 read -p "## 1ST Prep VM GATEWAY FINITO ##
 Press <Enter> Key to conclude"
-history -ca
+
+RTPASS="suckme"
+RTUSER="suckmeto"
