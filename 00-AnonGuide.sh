@@ -49,6 +49,42 @@ EOF
 sleep 1.5
 }
 
+KickSec(){
+WNXFAC="XFCE"
+
+echo 'Check User "user" exists...'
+
+if id "user" >/dev/null 2>&1; then
+ echo "Username user Exists"
+ if id -nG "user" | grep -qw "sudo"; then
+  echo "Username user belongs to sudo group"
+ else
+  echo "Adding Username user into sudo group.."
+  adduser user sudo
+ fi
+else
+ echo "User Not Found.. Creating it.."
+ sudo adduser user
+ adduser user sudo
+fi
+
+addgroup --system console
+adduser user console
+
+reboot
+
+sudo apt-get update && sudo apt-get dist-upgrade && sudo apt-get install curl apt-transport-tor
+curl --tlsv1.2 --proto =https --max-time 180 --output ~/patrick.asc https://www.whonix.org/patrick.asc
+sudo apt-key --keyring /etc/apt/trusted.gpg.d/whonix.gpg add ~/patrick.asc
+echo "deb https://deb.Whonix.org buster main contrib non-free" | sudo tee /etc/apt/sources.list.d/whonix.list
+# echo "deb tor+http://deb.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion buster main contrib non-free" | sudo tee /etc/apt/sources.list.d/whonix.list
+sudo apt-get update && sudo apt-get dist-upgrade
+sudo apt-get install --no-install-recommends kicksecure-${WNXFAC,,}
+sudo mv /etc/apt/sources.list ~/
+
+exit 0
+}
+
 DebianStarter() {
 
 echo "IF you REALLY are Using Anon-Guide...
@@ -394,10 +430,13 @@ then
   debian) printf 'Debian Installation\n'
    echo "$NAME $VERSION DETECTED" && sleep 1
    echo && read -r -p "What you will use:
-   1- Virtual Box (working)
+   0- KickSecure (Recommended)
+   1- Virtual Box (Alternative)
    2- Qemu/KVM    (developing...)
    " VMCHOICE
    case "$VMCHOICE" in
+    0) echo "KickSecure"
+	   KickSec
     1) echo "VMBOX"
        DebianStarter
        DebianVBox
