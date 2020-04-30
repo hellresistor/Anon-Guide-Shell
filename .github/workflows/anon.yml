@@ -3,7 +3,7 @@ name: AnonGuide
 jobs:
   konstruktoidShellCheck:
     name: Anongue ShellCheck
-    runs-on: ubuntu-debian
+    runs-on: self-host
     steps:
       - uses: ludeeus/action-shellcheck@0.1.0
       - name: Hellrezistor ShellCheck
