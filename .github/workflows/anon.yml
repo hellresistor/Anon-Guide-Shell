@@ -1,2 +1,15 @@
-- name: shellcheck
-  uses: ludeeus/action-shellcheck@0.1.0
+on: [push, pull_request]
+name: AnonGuide
+jobs:
+  konstruktoidShellCheck:
+    name: Anongue ShellCheck
+    runs-on: ubuntu-debian
+    steps:
+      - uses: ludeeus/action-shellcheck@0.1.0
+      - name: Hellrezistor ShellCheck
+        uses: ./action-shellcheck
+      - name: Create Issue
+        if: failure()
+        uses: JasonEtco/create-an-issue@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
