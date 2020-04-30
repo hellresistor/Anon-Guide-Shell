@@ -1,12 +1,12 @@
 on: [push, pull_request]
-name: Konstruktoid ShellCheck
+name: Anon ShellCheck
 jobs:
   konstruktoidShellCheck:
-    name: Konstruktoid ShellCheck
+    name: Anon ShellCheck
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Konstruktoid ShellCheck
+      - name: Anon ShellCheck
         uses: ./action-shellcheck
       - name: Create Issue
         if: failure()
