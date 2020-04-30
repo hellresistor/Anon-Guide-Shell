@@ -21,11 +21,7 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: Shellcheck Action
-  uses: fearphage/shellcheck-action@0.1.0-debug1
+      uses: fearphage/shellcheck-action@v1
       run: ./00-AnonGuide.sh
 
-    # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build.
         
