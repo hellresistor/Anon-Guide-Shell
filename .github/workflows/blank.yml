@@ -1,0 +1,18 @@
+name: LintCheck
+on:
+  
+  push:
+    branches:
+      - master
+  pull_request:
+    
+jobs:
+  LintShellCheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Lint check
+        uses: azohra/shell-linter@v0.3.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          SHELLCHECK_OPTS: -e SC2154,2034
