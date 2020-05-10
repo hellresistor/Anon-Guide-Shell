@@ -57,9 +57,9 @@ echo 'Check User "user" exists...'
 if id "user" >/dev/null 2>&1; then
  echo "Username user Exists"
  if id -nG "user" | grep -qw "sudo"; then
-  echo "Username user belongs to sudo group"
+  echo "Username user belongs to sudo group."
  else
-  echo "Adding Username user into sudo group.."
+  echo "Adding Username user into sudo group."
   adduser user sudo
  fi
 else
