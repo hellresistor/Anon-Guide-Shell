@@ -1,6 +1,6 @@
 name: AnoideCheck
-
 on:
+  
   push:
     branches: [ master ]
   pull_request:
