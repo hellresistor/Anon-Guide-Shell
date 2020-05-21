@@ -43,7 +43,7 @@ cat <<EOF
                       Hellresistor Contribution to Anonymous Guide
                                  Version: 1.0 ALPHA
 
-                            THANK YOU ALL TRUE ANONYMOUS!
+                            THANK YOU ALL TRUE ANONYMOUS! 
 
 EOF
 sleep 1.5
