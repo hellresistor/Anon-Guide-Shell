@@ -1,15 +1,17 @@
-name: LintCheck
+name: ShellerCeck
 on:
   
   push:
     branches:
       - master
   pull_request:
+    - master
     
 jobs:
-  LintShellCheck:
+  Sheller:
     runs-on: ubuntu-latest
     steps:
+      - name: Actions
       - uses: actions/checkout@v1
       - name: Lint check
-      uses: azohra/shell-linter@v0.3.0
+        uses: azohra/shell-linter@v0.3.0
