@@ -46,7 +46,7 @@ cat <<EOF
                             THANK YOU ALL TRUE ANONYMOUS! 
 
 EOF
-sleep 1.5
+sleep 1
 }
 
 KickSec(){
@@ -182,10 +182,10 @@ gpg --verify-options show-notations --verify Whonix-"$WNXFAC"-"$WNXVER".ova.asc
 vboxmanage import Whonix-"$WNXFAC-$WNXVER".ova --vsys 0 --eula accept --vsys 1 --eula accept
 cd "$PWD" || return
 vboxmanage clonehd VirtualBox\ VMs/Whonix-Gateway-"$WNXFAC"/Whonix-"$WNXFAC"-"$WNXVER"-disk001.vmdk VirtualBox\ VMs/Whonix-Gateway-"$WNXFAC"/Whonix-"$WNXFAC"-"$WNXVER"-disk001.vdi --format VDI
-vboxmanage storageattach Whonix-Gateway-"$WNXFAC" --storagectl "Whonix-Gateway-$WNXFAC-sas" --port 0 --device 0 --type hdd --medium "$PWD"/VirtualBox\ VMs/Whonix-Gateway-"$WNXFAC"/Whonix-"$WNXFAC"-"$WNXVER"-disk001.vdi --mtype immutable
+vboxmanage storageattach Whonix-Gateway-"$WNXFAC" --storagectl "Whonix-Gateway-""$WNXFAC""-sas" --port 0 --device 0 --type hdd --medium "$PWD"/VirtualBox\ VMs/Whonix-Gateway-"$WNXFAC"/Whonix-"$WNXFAC"-"$WNXVER"-disk001.vdi --mtype immutable
 vboxmanage closemedium disk VirtualBox\ VMs/Whonix-Gateway-"$WNXFAC"/Whonix-"$WNXFAC"-"$WNXVER"-disk001.vmdk --delete
 vboxmanage clonehd VirtualBox\ VMs/Whonix-Workstation-"$WNXFAC"/Whonix-"$WNXFAC"-"$WNXVER"-disk002.vmdk VirtualBox\ VMs/Whonix-Workstation-"$WNXFAC"/Whonix-"$WNXFAC"-"$WNXVER"-disk001.vdi --format VDI
-vboxmanage storageattach Whonix-Workstation-"$WNXFAC" --storagectl "Whonix-Workstation-$WNXFAC-sas" --port 0 --device 0 --type hdd --medium "$PWD"/VirtualBox\ VMs/Whonix-Workstation-"$WNXFAC"/Whonix-"$WNXFAC"-"$WNXVER"-disk001.vdi --mtype immutable
+vboxmanage storageattach Whonix-Workstation-"$WNXFAC" --storagectl "Whonix-Workstation-""$WNXFAC""-sas" --port 0 --device 0 --type hdd --medium "$PWD"/VirtualBox\ VMs/Whonix-Workstation-"$WNXFAC"/Whonix-"$WNXFAC"-"$WNXVER"-disk001.vdi --mtype immutable
 vboxmanage closemedium disk VirtualBox\ VMs/Whonix-Workstation-"$WNXFAC"/Whonix-"$WNXFAC"-"$WNXVER"-disk002.vmdk --delete
 vboxmanage createhd --filename VirtualBox\ VMs/Whonix-Workstation-"$WNXFAC"/Whonix-Workstation-"$WNXFAC"-storage.vdi --size 8192
 vboxmanage storageattach Whonix-Workstation-"$WNXFAC" --storagectl "Whonix-Workstation-$WNXFAC-sas" --port 1 --device 0 --type hdd --medium "$PWD"/VirtualBox\ VMs/Whonix-Workstation-"$WNXFAC"/Whonix-Workstation-"$WNXFAC"-storage.vdi --mtype writethrough
@@ -430,8 +430,8 @@ then
   debian) printf 'Debian Installation\n'
    echo "$NAME $VERSION DETECTED" && sleep 1
    echo && read -r -p "What you will use:
-   0- KickSecure (Recommended)
-   1- Virtual Box (Alternative)
+   0- KickSecure (Alternative)
+   1- Virtual Box (Recommended)
    2- Qemu/KVM    (developing...)
    " VMCHOICE
    case "$VMCHOICE" in
