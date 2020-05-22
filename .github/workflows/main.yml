@@ -1,4 +1,4 @@
-name: LintCheck
+name: AnonGuideShell
 on:
   
   push:
@@ -7,9 +7,9 @@ on:
   pull_request:
     
 jobs:
-  LintShellCheck:
+  AnonGuideShell:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
       - name: Lint check
         uses: azohra/shell-linter@v0.3.0
