@@ -5,6 +5,11 @@
 Hellresistor Contribution to Anon-Guide
 Version: 1.0 Alpha
 
+### Have:
+ - Create a Secure Debian install
+ - Create Whonixes Machines and configureit
+ - Tips to config thunderbird.. enigmail.. keepass.. IRC OTR..... Well AnonGuide ;)
+
 Thank you to ALL TRUE Anonymous !
 
     git clone https://github.com/hellresistor/Anon-Guide-Shell.git
