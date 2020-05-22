@@ -9,6 +9,7 @@ Version: 1.0 Alpha
  - Create a Secure Debian install
  - Create Whonixes Machines and configureit
  - Tips to config thunderbird.. enigmail.. keepass.. IRC OTR..... Well AnonGuide ;)
+ - a Pam_Duress Module ;) 
 
 Thank you to ALL TRUE Anonymous !
 
