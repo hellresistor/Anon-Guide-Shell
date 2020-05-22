@@ -50,8 +50,6 @@ sleep 1
 }
 
 KickSec(){
-WNXFAC="XFCE"
-
 echo 'Check User "user" exists...'
 
 if id "user" >/dev/null 2>&1; then
