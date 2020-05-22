@@ -1,4 +1,4 @@
-name: mycheck
+name: LintCheck
 on:
   
   push:
@@ -7,11 +7,9 @@ on:
   pull_request:
     
 jobs:
-  myshellcheck:
+  LintShellCheck:
     runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v1
-        - name: shellcheck
-        uses: ludeeus/action-shellcheck@0.1.0
-#          env:
-#            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@master
+      - name: Lint check
+        uses: azohra/shell-linter@v0.3.0
