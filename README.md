@@ -1,6 +1,6 @@
 # Anon-Guide-Shell
 
-  -DEPRICATED-
+  -DEPRECATE-
 
 Hellresistor Contribution to Anon-Guide
 Version: 1.0 Alpha
